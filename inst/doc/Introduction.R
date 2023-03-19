@@ -92,7 +92,7 @@ results6
 results7 <- exactmed(
   data = datamed, a = 'X', m = 'M', y = 'Y', a1 = 1, a0 = 0, 
   m_cov = c('C1', 'C2'), y_cov = c('C1', 'C2'), 
-  m_cov_cond = c(C1 = 0.1,C2 = 0.4), y_cov_cond = c(C1 = 0.1, C2 = 0.4)
+  m_cov_cond = c(C1 = 0.1, C2 = 0.4), y_cov_cond = c(C1 = 0.1, C2 = 0.4)
   )
 
 results7
@@ -102,7 +102,7 @@ results7
 
 exactmed(
   data = datamed, a = 'X', m = 'M', y = 'Y', a1 = 1, a0 = 0, 
-  m_cov = c('C1','C2'), y_cov = c('C1', 'C2'), 
+  m_cov = c('C1', 'C2'), y_cov = c('C1', 'C2'), 
   m_cov_cond = c(C1 = 0.3, C2 = 0.4), y_cov_cond = c(C1 = 0.1, C2 = 0.4)
  )
 
@@ -131,7 +131,7 @@ results9 <- exactmed(
 
 ## -----------------------------------------------------------------------------
 
-identical(results8, results9)
+all.equal(results8, results9)
 
 
 ## ----error=TRUE, collapse=FALSE-----------------------------------------------
@@ -170,5 +170,49 @@ results11 <- exactmed(
   )
 
 results11
+
+
+## -----------------------------------------------------------------------------
+
+results12 <- exactmed(
+  data = datamed, a = 'X', m = 'M', y = 'Y', 
+  a1 = 1, a0 = 0, interaction = FALSE, yprevalence = 0.1
+  )
+
+results12
+
+
+## -----------------------------------------------------------------------------
+
+library(ExactMed)
+
+head(datamed_c)
+
+
+
+## -----------------------------------------------------------------------------
+
+results13 <- exactmed_c(
+  data = datamed_c, a = 'X', m = 'M', y = 'Y', a1 = 1, a0 = 0,  
+  m_cov = c('C1', 'C2'), y_cov = c('C1', 'C2'), 
+  interaction = FALSE
+  )
+
+results13
+
+
+## ---- results='hide'----------------------------------------------------------
+
+results14 <- exactmed_c(
+  data = datamed_c, a = 'X', m = 'M', y = 'Y', a1 = 1, a0 = 0, 
+  m_cov = c('C1', 'C2'), y_cov = c('C1', 'C2'), 
+  boot = TRUE, nboot = 100, bootseed = 1885, confcoef = 0.95,
+  mf = 2
+  )
+
+
+## -----------------------------------------------------------------------------
+
+results14
 
 
