@@ -216,3 +216,34 @@ results14 <- exactmed_c(
 results14
 
 
+## -----------------------------------------------------------------------------
+
+head(datamed_cat)
+
+
+## -----------------------------------------------------------------------------
+
+results15 <- exactmed_cat(
+  data = datamed_cat, a = 'X', m = 'M', y = 'Y', a1 = 1, a0 = 0,  
+  m_cov = c('C1', 'C2'), y_cov = c('C1', 'C2'), 
+  interaction = FALSE
+  )
+
+results15
+
+
+## ---- results='hide'----------------------------------------------------------
+
+results16 <- exactmed_cat(
+  data = datamed_cat, a = 'X', m = 'M', y = 'Y', a1 = 1, a0 = 0, 
+  m_cov = c('C1', 'C2'), y_cov = c('C1', 'C2'), 
+  boot = TRUE, nboot = 100, bootseed = 1875, confcoef = 0.95,
+  mf = 'c'
+  )
+
+
+## -----------------------------------------------------------------------------
+
+results16
+
+

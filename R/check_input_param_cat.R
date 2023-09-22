@@ -1,8 +1,8 @@
 #' @noRd
 
-.check_input_param_c <- function(data, a, m, y, a1, a0, m_cov, y_cov, m_cov_cond,
+.check_input_param_cat <- function(data, a, m, y, a1, a0, m_cov, y_cov, m_cov_cond,
                                 y_cov_cond, adjusted, interaction, Firth, boot, nboot, bootseed,
-                                confcoef, hvalue_y, yprevalence, mf) {
+                                confcoef, blevel_m, hvalue_y, yprevalence, mf) {
   if (!(is.data.frame(data) && !is.null(colnames(data)))) stop("'data' must be a data frame with column names")
 
   if (any(duplicated(colnames(data)))) stop("'data' has duplicated column names")
@@ -182,27 +182,27 @@
     stop("Invalid type or length for input parameter 'hvalue_y'")
   }
 
-  if (!is.numeric(data[[m]])) stop("Mediator must be numerical variable")
+  if (!is.factor(data[[m]])) stop("Mediator must be factor type variable")
 
   if (length(unique(data[[y]])) > 2) {
     stop("Outcome takes more than two different values in 'data'")
   }
 
   if (is.factor(data[[y]])) {
-    if (is.null(hvalue_y)) stop("High level for the outcome must be specified. \n Please, select a value among the outcome levels")
+    if (is.null(hvalue_y)) stop("High level for the outcome must be specified")
 
     if (!hvalue_y %in% levels(data[[y]])) {
-      stop("Invalid value for high level of outcome. \n Please, select a value among the outcome levels")
+      stop("Invalid value for high level of outcome")
     }
   } else if (is.numeric(data[[y]]) && all(data[[y]] %in% c(1, 0))) {
     if (!(is.null(hvalue_y) || hvalue_y %in% data[[y]])) {
-      stop("Invalid value for high level of outcome. \n Please, select a value among the outcome levels")
+      stop("Invalid value for high level of outcome")
     }
   } else {
-    if (is.null(hvalue_y)) stop("High level for the outcome must be specified. \n Please, select a value among the outcome levels")
+    if (is.null(hvalue_y)) stop("High level for the outcome must be specified")
 
     if (!hvalue_y %in% data[[y]]) {
-      stop("Invalid value for high level of outcome. \n Please, select a value among the outcome levels")
+      stop("Invalid value for high level of outcome")
     }
   }
 
@@ -210,13 +210,16 @@
     stop("'yprevalence' must be NULL or a valid real number")
   }
 
-  if (!(is.null(mf) || (is.vector(mf, mode = "numeric") && length(mf) == 1L))) {
-    stop("'mf' must be NULL or a valid real number")
+
+  if(!(is.null(blevel_m) || blevel_m %in% levels(data[[m]]))) {
+    stop("Invalid value for 'blevel_m' parameter")
   }
 
-  if (!(is.null(mf) || (min(data[[m]]) <= mf && mf <= max(data[[m]])))) {
-    warning("'mf' value is out of range")
+
+  if (!(is.null(mf) || mf %in% levels(data[[m]]))) {
+    stop("Invalid value for 'mf' parameter")
   }
+
 
 
 }

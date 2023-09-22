@@ -3,7 +3,7 @@
 #' @export
 
 
-print.results_c <- function(x, ...) {
+print.results_cat <- function(x, ...) {
   if(length(x) == 7) {
     cat("\n")
     cat("Natural effects on OR scale: \n")
@@ -21,7 +21,7 @@ print.results_c <- function(x, ...) {
     print(x[[3]])
 
     cat("\n")
-    cat("Controlled direct effect (m=", x[[7]], "): \n", sep = "")
+    cat("Controlled direct effect (m='", x[[7]], "'): \n", sep = "")
     cat("\n")
     print(x[[4]])
 
@@ -44,7 +44,7 @@ print.results_c <- function(x, ...) {
       print(x[[5]])
 
       cat("\n")
-      cat("Outcome model: \n")
+      cat("Outcome model:", "\n")
       cat("\n")
       print(x[[6]])
     }
@@ -65,7 +65,7 @@ print.results_c <- function(x, ...) {
     print(x[[3]])
 
     cat("\n")
-    cat("Controlled direct effect (m=", x[[14]], "): \n", sep = "")
+    cat("Controlled direct effect (m='", x[[14]], "'): \n", sep = "")
     cat("\n")
     print(x[[4]])
 
@@ -113,6 +113,22 @@ print.results_c <- function(x, ...) {
   }
   invisible(x)
 }
+
+
+# print.results <- function(x, ...) {
+#   for(i in 1:length(x)) {
+#     cat("\n")
+#     cat(names(x)[i], ":", "\n", sep = "")
+#     if(grepl("boot", names(x)[i])) {
+#       cat("\n")
+#       print(head(x[[i]]))
+#     } else {
+#       cat("\n")
+#       print(x[[i]])
+#     }
+#   }
+#   invisible(x)
+# }
 
 
 
